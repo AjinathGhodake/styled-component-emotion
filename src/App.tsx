@@ -1,25 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import { FancyButton, StyledButton } from "./components/Button";
 import './App.css';
+import logo from './logo.svg';
+import { AnimatedLogo, DarkButton } from "./components/Button/Button.styles";
+import { Theme, ThemeProvider,Global, css } from "@emotion/react";
+
+export type TCustomTheme = Theme & {
+    dark:{
+        primary:'#000',
+        text:'#fff'
+    },
+    white:{
+        primary:'#fff',
+        text:'#000'
+    }
+    
+}
+const globalStyles = css`
+  body {
+    font-family: 'Roboto';
+    background-color: #f0f0f0;
+  }
+`;
 
 function App() {
+    const theme: TCustomTheme  = {
+        dark:{
+            primary:'#000',
+            text:'#fff'
+        },
+        white:{
+            primary:'#fff',
+            text:'#000'
+        }
+        
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ThemeProvider theme={theme}>
+         <Global styles={globalStyles} />
+      <AnimatedLogo src={logo} alt="logo"></AnimatedLogo>
+    <StyledButton>Styled Button</StyledButton>
+    <div>
+        <br />
     </div>
+    <StyledButton variant={'outlined'}>Styled Button</StyledButton>     
+    <div>
+        <br />
+    </div>
+    <FancyButton>Fancy Button</FancyButton>     
+    <div>
+        <br />
+    </div>
+    <DarkButton>Dark Theme</DarkButton>
+    </ThemeProvider>
   );
 }
 
